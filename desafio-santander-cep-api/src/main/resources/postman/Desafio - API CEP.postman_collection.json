@@ -1,0 +1,456 @@
+{
+	"info": {
+		"_postman_id": "e1e9c9fe-1542-45f9-9684-9326e526e2b5",
+		"name": "Desafio - API CEP",
+		"description": "Coleção para testar a API de consulta de CEP do Desafio Santander\n\n## Recursos disponíveis:\n- Consulta de CEP com log automático\n- Listagem de logs de consultas\n- Filtro de logs por CEP específico\n\n## Documentação:\n- Swagger UI: http://localhost:8080/swagger-ui.html\n- H2 Console: http://localhost:8080/h2-console",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34643605"
+	},
+	"item": [
+		{
+			"name": "CEP Endpoints",
+			"item": [
+				{
+					"name": "1. Consultar CEP Válido (Av. Paulista)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has success field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('sucesso');",
+									"    pm.expect(jsonData.sucesso).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response has data field with CEP info\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('dados');",
+									"    pm.expect(jsonData.dados).to.have.property('cep');",
+									"    pm.expect(jsonData.dados).to.have.property('logradouro');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cep/01310100",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"cep",
+								"01310100"
+							]
+						},
+						"description": "Consulta um CEP válido (01310-100 - Avenida Paulista, São Paulo/SP)"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/cep/01310100",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"cep",
+										"01310100"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"sucesso\": true,\n    \"mensagem\": \"Consulta realizada com sucesso\",\n    \"dados\": {\n        \"cep\": \"01310-100\",\n        \"logradouro\": \"Avenida Paulista\",\n        \"complemento\": \"\",\n        \"bairro\": \"Bela Vista\",\n        \"localidade\": \"São Paulo\",\n        \"uf\": \"SP\",\n        \"ibge\": \"3550308\",\n        \"gia\": \"1004\",\n        \"ddd\": \"11\",\n        \"siafi\": \"7107\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "2. Consultar CEP Válido (Centro RJ)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has success field\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('sucesso');",
+									"    pm.expect(jsonData.sucesso).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cep/20040020",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"cep",
+								"20040020"
+							]
+						},
+						"description": "Consulta um CEP válido (20040-020 - Centro, Rio de Janeiro/RJ)"
+					},
+					"response": []
+				},
+				{
+					"name": "3. Consultar CEP Inválido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"pm.test(\"Response indicates error\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('sucesso');",
+									"    pm.expect(jsonData.sucesso).to.be.false;",
+									"    pm.expect(jsonData).to.have.property('mensagem');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cep/00000000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"cep",
+								"00000000"
+							]
+						},
+						"description": "Testa um CEP inválido para validar o tratamento de erros"
+					},
+					"response": [
+						{
+							"name": "Error Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/cep/00000000",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"cep",
+										"00000000"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"sucesso\": false,\n    \"mensagem\": \"CEP não encontrado ou inválido\",\n    \"dados\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "4. Consultar CEP com Formato Inválido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cep/123",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"cep",
+								"123"
+							]
+						},
+						"description": "Testa um CEP com formato inválido (menos de 8 dígitos)"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para consulta de CEP"
+		},
+		{
+			"name": "Logs Endpoints",
+			"item": [
+				{
+					"name": "1. Listar Todos os Logs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is successful\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('sucesso');",
+									"    pm.expect(jsonData.sucesso).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"Response has data array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('dados');",
+									"    pm.expect(jsonData.dados).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cep/logs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"cep",
+								"logs"
+							]
+						},
+						"description": "Lista todos os logs de consultas realizadas"
+					},
+					"response": [
+						{
+							"name": "Success Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/cep/logs",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"cep",
+										"logs"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"sucesso\": true,\n    \"mensagem\": \"Consulta realizada com sucesso\",\n    \"dados\": [\n        {\n            \"id\": 1,\n            \"cep\": \"01310100\",\n            \"consultaTimestamp\": \"2023-10-01T12:30:45\",\n            \"logradouro\": \"Avenida Paulista\",\n            \"complemento\": \"\",\n            \"bairro\": \"Bela Vista\",\n            \"localidade\": \"São Paulo\",\n            \"uf\": \"SP\",\n            \"ibge\": \"3550308\",\n            \"gia\": \"1004\",\n            \"ddd\": \"11\",\n            \"siafi\": \"7107\",\n            \"sucesso\": true,\n            \"erroMensagem\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "2. Listar Logs por CEP Específico",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is successful\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('sucesso');",
+									"    pm.expect(jsonData.sucesso).to.be.true;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/cep/logs/01310100",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"cep",
+								"logs",
+								"01310100"
+							]
+						},
+						"description": "Lista todos os logs de consultas para um CEP específico"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para consulta de logs"
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Actuator Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						},
+						"description": "Verifica o status de saúde da aplicação"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

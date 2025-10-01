@@ -1,0 +1,73 @@
+{
+  "mappings": [
+    {
+      "name": "CEP Válido - Avenida Paulista",
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPattern": "/ws/01310100/json/"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "jsonBody": {
+          "cep": "01310-100",
+          "logradouro": "Avenida Paulista",
+          "complemento": "",
+          "bairro": "Bela Vista",
+          "localidade": "São Paulo",
+          "uf": "SP",
+          "ibge": "3550308",
+          "gia": "1004",
+          "ddd": "11",
+          "siafi": "7107"
+        }
+      }
+    },
+    {
+      "name": "CEP Válido - Centro Rio de Janeiro", 
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPattern": "/ws/20040020/json/"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "jsonBody": {
+          "cep": "20040-020",
+          "logradouro": "Rua da Assembleia",
+          "complemento": "",
+          "bairro": "Centro",
+          "localidade": "Rio de Janeiro",
+          "uf": "RJ",
+          "ibge": "3304557",
+          "gia": "",
+          "ddd": "21",
+          "siafi": "6001"
+        }
+      }
+    },
+    {
+      "name": "CEP Inválido - Erro Genérico",
+      "priority": 10,
+      "request": {
+        "method": "GET",
+        "urlPattern": "/ws/([0-9]{8})/json/"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "jsonBody": {
+          "erro": true
+        }
+      }
+    }
+  ]
+}
