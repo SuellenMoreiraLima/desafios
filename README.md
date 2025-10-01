@@ -12,7 +12,7 @@ Sistema completo de consulta de CEP com mock de API externa, banco de dados e ar
 
 ```bash
 # 1. Clonar o repositório
-git clone <seu-repositorio-git>
+git clone https://github.com/SuellenMoreiraLima/desafios.git
 cd desafio-nava
 
 # 2. Iniciar ambiente completo
@@ -303,9 +303,9 @@ docker system prune -a
 
 ## 👨‍💻 Desenvolvedor
 
-**Suellen Lima Moreira**  
-📧 Email: [seu-email@exemplo.com]  
-🐙 GitHub: [seu-usuario]  
+**Suellen Moreira Lima**  
+📧 Email: developer.suellen.lima@gmail.com  
+🐙 GitHub:SuellenMoreiraLima
 
 ---
 
